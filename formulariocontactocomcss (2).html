@@ -175,10 +175,18 @@
             <!-- Mensagem -->
             <label for="mensagem">Mensagem:</label>
             <textarea id="mensagem" name="mensagem" rows="4" placeholder="Escreva a sua mensagem aqui..."></textarea>
+            
+            <!--A mensagem suportará até 200 caracteres. Vamos usar o texto abaixo para indicar o limite de caracteres e quantos caracteres já foram inseridos. Esta verificação será feita em JavaScript-->
+            <small id="contador-caracteres" class="form-text text-muted">0/200 caracteres</small>
+
 
             <!-- Botão de Envio 
             <button type="submit">Enviar</button>-->
             <button type="submit" class="btn btn-primary w-100">Enviar</button>
+
+
+            <!--LIMPAR FORMULÁRIO: A limpeza funcionará via Javascript-->
+            <button type="button" id="limpar-formulario" class="btn btn-secondary w-100 mt-2">Limpar</button>
 
         </form>
     </div>
@@ -231,5 +239,33 @@
         $("button[type='submit']").on("click", function () {
             $("input:invalid, select:invalid").css("border-color", "red");
         });
+
+
+    
+    // Atualiza o contador de caracteres
+$("#mensagem").on("input", function () {
+    const maxLength = 200; //Definimos um limite de caracteres (200), atribuido à constante 'maxLength'
+    const currentLength = $(this).val().length; //O numero de caracteres atualmente inseridos pelo atualizador vão sendo armazenados à medida que o input vai sendo alterado na constante 'currentLength'
+    $("#contador-caracteres").text(`${currentLength}/${maxLength} caracteres`); //O texto do contador vai sendo atualizado com o limite maximo de caracteres e com a length atual do input na caixa da mensagem.
+});
+
+// Realça o campo com foco
+$("input, textarea, select").on("focus", function () {
+    $(this).css("border-color", "#4CAF50"); // Verde
+});
+
+// Remove o destaque ao perder o foco
+$("input, textarea, select").on("blur", function () {
+    $(this).css("border-color", "#ccc"); // Cinza padrão
+});
+
+
+// Limpar formulário
+$("#limpar-formulario").on("click", function () {
+    $("form")[0].reset(); // Reseta o formulário
+    $("#contador-caracteres").text("0/200 caracteres"); // Reseta o contador
+    alert("Formulário limpo!"); // Exibe mensagem de feedback
+});
+        
 </script>
 </html>
