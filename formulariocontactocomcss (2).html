@@ -201,21 +201,33 @@
 
     //Existem também eventos de hover no JQuery (além de já podermos usá-lo no CSS tradicional)//
 
-    $(".form-container").hover(
+    $(".form-container").hover( //o HOVER receberá 2 funções para que a cor alterne enquanto tivermos e não tivermos o mouse por cima do formulário.
 
         function(){
 
-           $(this).css("background-color","#e6f7ff");
+           $(this).css("background-color","#e6f7ff");  //Ao passar o mouse no elemento de classe chamaa 'form-container', este elemento (daí o 'this' referente ao parent), aplicará uma regra css (.css) que será a cor, e alterará para uma certa cor
 
         },
 
         function(){
-            $(this).css("background-color","#fff");
+            $(this).css("background-color","#fff"); //Ao retirar o mouse, a cor torna-se branca sobre esse elemento.
         }
 
     );
 
    });
 
+   $("#pais").on("change", function() {  //O '#pais' indica o elemento com o ID 'pais', que neste caso é o elemento de selecção do pais no formulário. 
+
+      const paisSelecionado = $(this).val(); //O valor desse elemento que seja selecionado, será associado a uma constante/variável chamada 'paisSelecionado'.
+      alert("Você selecionou: " + paisSelecionado); //Um alerta é gerado concatenando uma string 'Voce selecionou:', seguido do valor armazenado na constante declarada anteriormente que conterá o valor atual selecionado no elemento 'pais'.
+
+   });
+
+
+        // Realçar campos obrigatórios ao clicar no botão
+        $("button[type='submit']").on("click", function () {
+            $("input:invalid, select:invalid").css("border-color", "red");
+        });
 </script>
 </html>
