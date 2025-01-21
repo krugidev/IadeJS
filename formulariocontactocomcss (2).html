@@ -191,12 +191,29 @@
    $(document).ready(function () {
 
     //Ao submeter o formulário (tipo submit no form), é ativado um evento. Esse evento é passado como argumento e podemos tratá-lo da forma que entendermos melhor.
-    $("form").on("submit", function(event) {
+    $("form").on("submit", function(event) { //Como só temos um botão de submit usei um seletor de tipo. Mas caso fosse necessário, poderia atribuir um id ao botão de submissão de formulário e associá-lo à função.
 
         event.preventDefault();
         alert("Formulário enviado com sucesso!"); //Será também enviado um ALERTA DE TEXTO que indica que o formulário foi submetido com sucesso.
     })
 
+
+
+    //Existem também eventos de hover no JQuery (além de já podermos usá-lo no CSS tradicional)//
+
+    $(".form-container").hover(
+
+        function(){
+
+           $(this).css("background-color","#e6f7ff");
+
+        },
+
+        function(){
+            $(this).css("background-color","#fff");
+        }
+
+    );
 
    });
 
