@@ -182,4 +182,23 @@
     </div>
 
 </body>
+
+
+<!--INTEGRAÇÕES COM O JQUERY-->
+<script>
+   
+   //Quando o documento é carregado, um certo conjunto de funções fica ativo//
+   $(document).ready(function () {
+
+    //Ao submeter o formulário (tipo submit no form), é ativado um evento. Esse evento é passado como argumento e podemos tratá-lo da forma que entendermos melhor.
+    $("form").on("submit", function(event) {
+
+        event.preventDefault();
+        alert("Formulário enviado com sucesso!"); //Será também enviado um ALERTA DE TEXTO que indica que o formulário foi submetido com sucesso.
+    })
+
+
+   });
+
+</script>
 </html>
