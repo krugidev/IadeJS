@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulário de Contacto</title>
+    <script src="jquery3.7.1.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <style>
+        /* Reset básico */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Estilo da página , ou seja, dos elementos contidos no body*/
+        body {
+            font-family: Arial, sans-serif; /*Fonte de letra presente nos elementos do body*/
+            display: flex;
+            justify-content: center;  /*Items alinhados ao CENTRO da página*/
+            align-items: center;
+            min-height: 100vh;
+            background-color: #f0f2f5;  /*Cor branca básica para o fundo da página*/
+            color: #333; /*Cor de textos a preto.*/
+        }
+
+        /* Container do formulário */
+        .form-container {
+            background-color: #fff;  /*Cor branca básica para o container com o formulário*/
+            padding: 2rem;  /*Tentar criar um espaçamento básico entre os elementos contidos no container do formulário*/
+            border-radius: 8px;  /*Arredondamento das pontas do container*/
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /*Tentar criar uma profundidade da caixa. A preto.*/
+            max-width: 500px; 
+            width: 100%;
+        }
+
+        /*Estilizar o texto de 'Formuário de Contacto'. Alinhado ao centro, com cor de letra a preto.*/
+        h1 {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            color: #333;
+            text-align: center;
+        }
+
+
+        /*Estilização das labels, com destaque para a estilização de bold sobre elas.*/
+        label {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+
+        /*Espaçamento entre as caixas de texto de input das várias secções: nome e morada (text), data de nascimento (date), cor favorita (color), a seclção de pais (select), e a mensagem longa (TEXTAREA).*/
+        input[type="text"],
+        input[type="date"],
+        input[type="color"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 0.5rem;
+            margin-bottom: 1.2rem;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 1rem;
+            font-family: inherit;
+        }
+
+        /* Estilo do campo de checkbox */
+        .checkbox-group {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.2rem;
+        }
+
+        .checkbox-group-vertical {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            margin-bottom: 1.2rem;
+        }
+
+        /* Estilo dos botões de envio */
+        button[type="submit"] {
+            width: 100%;
+            padding: 0.7rem;
+            border: none;
+            background-color: #4CAF50;
+            color: #fff;
+            font-size: 1rem;
+            font-weight: bold;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+
+        /*Estilização de um EVENTO destinado ao mouse passar em cima do botão de SUBMIT, que neste caso, TORNA O SEU BACKGROUND COLOR para um tom verde mais ESCURECIDO (o background color dele normal está no CSS do botão submit sem qualquer tipo de evento*/
+        button[type="submit"]:hover {
+            background-color: #45a049;
+        }
+
+        /* Estilo do fieldset e legend de modo a definir a estilização das caixas que determinam as varias secções contidas no formulário.*/
+        fieldset {
+            border: 1px solid #ddd;
+            padding: 1rem;
+            border-radius: 4px;
+            margin-bottom: 1.5rem;
+        }
+
+        legend {
+            font-weight: bold;
+            padding: 0 0.5rem;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="form-container">
+        <h1>Formulário de Contacto</h1>
+        <form action="/envio-dados" method="POST">
+            <!-- Nome -->
+            <label for="nome">Nome:</label>
+            <input type="text" id="nome" name="nome" required>
+
+            <!-- Morada -->
+            <label for="morada">Morada:</label>
+            <input type="text" id="morada" name="morada" required>
+
+            <!-- Data de Nascimento -->
+            <label for="data_nascimento">Data de Nascimento:</label>
+            <input type="date" id="data_nascimento" name="data_nascimento" required>
+
+            <!-- País (Dropdown) -->
+            <fieldset>
+                <legend>Selecionar País</legend>
+                <label for="pais">País:</label>
+                <select id="pais" name="pais" required>
+                    <option value="" disabled selected>Seleciona o teu país</option>
+                    <option value="PT">Portugal</option>
+                    <option value="BR">Brasil</option>
+                    <option value="ES">Espanha</option>
+                    <option value="FR">França</option>
+                    <option value="IT">Itália</option>
+                </select>
+            </fieldset>
+
+            <!-- Linguagem Favorita (Checkbox) -->
+            <fieldset>
+                <legend>Linguagem Favorita</legend>
+                <div class="checkbox-group">
+                    <label><input type="radio" name="linguagem" value="HTML"> HTML</label>
+                    <label><input type="radio" name="linguagem" value="CSS"> CSS</label>
+                    <label><input type="radio" name="linguagem" value="JS"> JavaScript</label>
+                </div>
+            </fieldset>
+
+            <!-- Veículos Possuídos (Checkbox) -->
+            <fieldset>
+                <legend>Veículos que Possui</legend>
+                <div class="checkbox-group-vertical">
+                    <label><input type="checkbox" name="veiculos" value="Carro"> Carro</label>
+                    <label><input type="checkbox" name="veiculos" value="Moto"> Moto</label>
+                    <label><input type="checkbox" name="veiculos" value="Bicicleta"> Bicicleta</label>
+                </div>
+            </fieldset>
+
+            <!-- Cor Favorita -->
+            <label for="cor">Cor Favorita:</label>
+            <input type="color" id="cor" name="cor">
+
+            <!-- Mensagem -->
+            <label for="mensagem">Mensagem:</label>
+            <textarea id="mensagem" name="mensagem" rows="4" placeholder="Escreva a sua mensagem aqui..."></textarea>
+            
+            <!--A mensagem suportará até 200 caracteres. Vamos usar o texto abaixo para indicar o limite de caracteres e quantos caracteres já foram inseridos. Esta verificação será feita em JavaScript-->
+            <small id="contador-caracteres" class="form-text text-muted">0/200 caracteres</small>
+
+
+            <!-- Botão de Envio 
+            <button type="submit">Enviar</button>-->
+            <button type="submit" class="btn btn-primary w-100">Enviar</button>
+
+
+            <!--LIMPAR FORMULÁRIO: A limpeza funcionará via Javascript-->
+            <button type="button" id="limpar-formulario" class="btn btn-secondary w-100 mt-2">Limpar</button>
+
+        </form>
+    </div>
+
+</body>
+
+
+<!--INTEGRAÇÕES COM O JQUERY-->
+<script>
+   
+   //Quando o documento é carregado, um certo conjunto de funções fica ativo//
+   $(document).ready(function () {
+
+    //Ao submeter o formulário (tipo submit no form), é ativado um evento. Esse evento é passado como argumento e podemos tratá-lo da forma que entendermos melhor.
+    $("form").on("submit", function(event) { //Como só temos um botão de submit usei um seletor de tipo. Mas caso fosse necessário, poderia atribuir um id ao botão de submissão de formulário e associá-lo à função.
+
+        event.preventDefault();
+        alert("Formulário enviado com sucesso!"); //Será também enviado um ALERTA DE TEXTO que indica que o formulário foi submetido com sucesso.
+    })
+
+
+
+    //Existem também eventos de hover no JQuery (além de já podermos usá-lo no CSS tradicional)//
+
+    $(".form-container").hover( //o HOVER receberá 2 funções para que a cor alterne enquanto tivermos e não tivermos o mouse por cima do formulário.
+
+        function(){
+
+           $(this).css("background-color","#e6f7ff");  //Ao passar o mouse no elemento de classe chamaa 'form-container', este elemento (daí o 'this' referente ao parent), aplicará uma regra css (.css) que será a cor, e alterará para uma certa cor
+
+        },
+
+        function(){
+            $(this).css("background-color","#fff"); //Ao retirar o mouse, a cor torna-se branca sobre esse elemento.
+        }
+
+    );
+
+   });
+
+   $("#pais").on("change", function() {  //O '#pais' indica o elemento com o ID 'pais', que neste caso é o elemento de selecção do pais no formulário. 
+
+      const paisSelecionado = $(this).val(); //O valor desse elemento que seja selecionado, será associado a uma constante/variável chamada 'paisSelecionado'.
+      alert("Você selecionou: " + paisSelecionado); //Um alerta é gerado concatenando uma string 'Voce selecionou:', seguido do valor armazenado na constante declarada anteriormente que conterá o valor atual selecionado no elemento 'pais'.
+
+   });
+
+
+        // Realçar campos obrigatórios ao clicar no botão
+        $("button[type='submit']").on("click", function () {
+            $("input:invalid, select:invalid").css("border-color", "red");
+        });
+
+
+    
+    // Atualiza o contador de caracteres
+$("#mensagem").on("input", function () {
+    const maxLength = 200; //Definimos um limite de caracteres (200), atribuido à constante 'maxLength'
+    const currentLength = $(this).val().length; //O numero de caracteres atualmente inseridos pelo atualizador vão sendo armazenados à medida que o input vai sendo alterado na constante 'currentLength'
+    $("#contador-caracteres").text(`${currentLength}/${maxLength} caracteres`); //O texto do contador vai sendo atualizado com o limite maximo de caracteres e com a length atual do input na caixa da mensagem.
+});
+
+// Realça o campo com foco
+$("input, textarea, select").on("focus", function () {
+    $(this).css("border-color", "#4CAF50"); // Verde
+});
+
+// Remove o destaque ao perder o foco
+$("input, textarea, select").on("blur", function () {
+    $(this).css("border-color", "#ccc"); // Cinza padrão
+});
+
+
+// Limpar formulário
+$("#limpar-formulario").on("click", function () {
+    $("form")[0].reset(); // Reseta o formulário
+    $("#contador-caracteres").text("0/200 caracteres"); // Reseta o contador
+    alert("Formulário limpo!"); // Exibe mensagem de feedback
+});
+        
+</script>
+</html>

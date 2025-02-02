@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerador de Parágrafos Dinâmicos</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center mb-4">Gerador de Parágrafos Dinâmicos</h1>
+        <div class="row">
+            <div class="col-md-6 offset-md-3">
+                <!-- Formulário -->
+                <form id="form-gerador">
+                    <div class="mb-3">
+                        <label for="numero-paragrafos" class="form-label">Número de Parágrafos</label>
+                        <input type="number" id="numero-paragrafos" class="form-control" placeholder="Digite um número" min="1" required>
+                    </div>
+                    <button type="button" id="gerar" class="btn btn-primary w-100">Gerar Parágrafos</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Caixa para exibir os parágrafos gerados -->
+        <div class="mt-4 p-3 border rounded" id="output-container" style="background-color: #f8f9fa;">
+            <h3 class="text-center">Parágrafos Gerados</h3>
+            <div id="output" class="mt-3"></div>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            // Array de palavras para criar os parágrafos
+            const palavras = [
+                "lorem", "ipsum", "dolor", "sit", "amet", "consectetur", "adipiscing", "elit", 
+                "sed", "do", "eiusmod", "tempor", "incididunt", "ut", "labore", "et", "dolore", "magna", "aliqua"
+            ];
+
+            // Função para gerar uma linha aleatória
+            function gerarLinha(numPalavras) {
+                let linha = [];
+                for (let i = 0; i < numPalavras; i++) {
+                    const palavra = palavras[Math.floor(Math.random() * palavras.length)];
+                    linha.push(palavra);
+                }
+                return linha.join(" ") + ".";
+            }
+
+            // Função para gerar parágrafos dinâmicos
+            function gerarParagrafo(numLinhas) {
+                let paragrafo = [];
+                for (let i = 0; i < numLinhas; i++) {
+                    const numPalavras = Math.floor(Math.random() * 10) + 5; // Cada linha terá entre 5 e 15 palavras
+                    paragrafo.push(gerarLinha(numPalavras));
+                }
+                return paragrafo.join(" "); // Junta as linhas do parágrafo com um espaço entre elas
+            }
+
+            // Evento do botão de gerar
+            $("#gerar").click(function () {
+                const numeroParagrafos = parseInt($("#numero-paragrafos").val());
+
+                // Verifica se o número é válido
+                if (!numeroParagrafos || numeroParagrafos <= 0) {
+                    alert("Por favor, insira um número válido.");
+                    return;
+                }
+
+                // Limpa o conteúdo anterior no container de output
+                $("#output").empty();
+
+                // Loop para gerar os parágrafos
+                for (let i = 0; i < numeroParagrafos; i++) {
+                    const numLinhas = Math.floor(Math.random() * 5) + 3; // Cada parágrafo terá entre 3 e 7 linhas
+                    const paragrafo = gerarParagrafo(numLinhas);
+                    $("#output").append(`<p>${paragrafo}</p>`);
+                }
+            });
+        });
+    </script>
+</body>
+</html>

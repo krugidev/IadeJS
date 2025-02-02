@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Geração de Parágrafos</title>
+    <script src="jquery3.7.1.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</head>
+<body>
+    
+    <div class="container mt-5">
+
+      <h1 class="text-center mb-4">Gerador de Parágrafos</h1>
+      
+        <div class="row">
+
+          <div class="col-md-6 offset-md-3">
+
+            <!--FORMULÁRIO PARA INSERIR O NUMERO DE PARÁGRAFOS A GERAR-->
+
+            <form id="form-gerador">  <!--O formulário vai conter um input para a quantidade de parágrafos a ser gerado.-->
+
+                <div class="mb-3">
+
+                    <label for="numero-paragrafos" class="form-label">Número de Parágrafos</label>
+                    <input type="number" id="numero-paragrafos" class="form-control" placeholder="Introduza um valor..." min="1" required>  <!--O utilizador deverá ter que inserir pelo menos 1 PARÁGRAFO. Daí o min. Além disso, o campo é obrigatório, daí a cláusula 'required'-->
+
+                </div>
+
+
+
+                <!--BOTÃO PARA GERAR OS PARÁGRAFOS-->
+                <button type="button" id="geracao" class="btn btn-primary w-100">Gerar Parágrafos</button>
+
+
+            </form>
+          </div>
+        </div>
+
+
+        <!--Caixa que vai EXIBIR os parágrafos que vão sendo gerados-->
+
+        <div class="mt-4 p-3 border rounded" id="output-container" style="background-color: #f8f9fa;">
+
+            <h3 class="text-center">Parágrafos Gerados</h3>
+            <div id="output" class="mt-3"></div>
+
+        </div>
+
+    </div>
+
+
+
+
+    <!--FUNCIONAMENTO DA GERAÇÃO DOS PARÁGRAFOS-->
+    <script>
+
+        //Quando a página (documento em si), for carregado(a), o script é levado em consideração.
+
+        $(document).ready(function () {
+
+          //Cada parágrafo será dinamico. Ou seja, terá um numero aleatorio de LINHAS e cada linha terá um numero aleatório de palavras.
+
+          //Para as palavras, usei um array pré-definido:
+          const palavras = ["lorem", "ipsum", "dolor", "sit", "amet", "consectetur", "adipiscing", "elit", "sed", "do", "eiusmod", "tempor", "incididunt", "ut", "labore", "et", "dolore", "magna", "aliqua"];
+
+
+
+          //Cada linha será uma lista de palavras concatenadas e separadas por pontos finais:
+          function gerarLinha(numPalavras){ //O argumento será o numero de palavras que cada frase terá...isto permitirá definir o numero de iterações que cada linha deve ter para se formar. O numero de palavras é gerado na variável de mesmo nome, na função de gerar o paragrafo.
+
+            let linha = []; //Cada linha começa com 0 palavras. Estas vão sendo adicionadas e formatadas em linhas (separação de palavras e adição de ponto final em cada uma).
+
+            for(var i=0; i < numPalavras; i++){
+
+                const palavra = palavras[Math.floor(Math.random() * palavras.length)];
+                linha.push(palavra);
+
+            }
+
+
+            // Transforma a primeira palavra da linha em uppercase
+            let linhaFormatada = linha.join(" ");
+            return linhaFormatada.charAt(0).toUpperCase() + linhaFormatada.slice(1) + "."; //Cada linha será um array de palavras que são selecionadas aleatoriamente do array de palavras definido anteriormente por meio dos indices de cada palavra.
+
+                                          //Cada linha terá a primeira letra em uppercase (daí o indice 0 seguido do toUpperCase). O restante da linha (usando o slice partindo da segunda letra), serão normais.
+                                          //Cada elemento novo adicionado ao array linha (cada elemento é uma palavra), será concatenada com espaço em branco (espaçamento entre palavras) e um ponto final no fim de cada linha.
+          }
+
+
+
+
+          //Semlhante à linha, um parágrafo será um array de linhas formatadas como um parágrafo. O numero de linhas por parágrafo também será gerado aleatoriamente usando o random().
+
+          function gerarParagrafo(numLinhas){
+
+             let paragrafo = [];
+
+             for(var i=0; i < numLinhas; i++){
+                const numPalavras = Math.floor(Math.random() * 10) + 5; // Cada linha terá entre 5 e 15 palavras
+
+                paragrafo.push(gerarLinha(numPalavras)); //Cada paragrafo terá um numero de linhas, com cada linha tendo entre 5 e 15 palavras. Cada linha usa este valor na função de geração de linha para criá-la.
+             }
+
+
+             return paragrafo.join(" "); //As linhas de cada parágrafo são juntadas com um espaço entre elas.
+
+          }
+
+
+
+          //Evento do botão para gerar parágrafos//
+
+          $("#geracao").click(function() {
+
+            const numeroParagrafos = parseInt($("#numero-paragrafos").val()); //O numero de parágrafos é primeiramente obtido do valor do input (convertido para o type inteiro).
+
+
+            //Verificação se o valor inserido é válido//
+
+            if(!numeroParagrafos || numeroParagrafos <=0){
+                alert("Por favor, insira um valor válido para o número de parágrafos que pretende gerar.");
+                return;
+            }
+
+
+            // A cada clique, como ocorre uma nova geração de parágrafos, a caixa onde eles se encontram exibidos (output), deverá ser limpa.
+            $("#output").empty();
+
+
+
+            //Loop para gerar cada parágrafo:
+
+            for(var i = 0; i < numeroParagrafos; i++){
+                
+                const numLinhas = Math.floor(Math.random() * 5) + 3; // Cada parágrafo terá entre 3 e 7 linhas.
+
+                const paragrafo = gerarParagrafo(numLinhas);
+
+                $("#output").append('<p>' + paragrafo + '</p>'); // Construimos o HTML dos paragrafos dentro da caixa de output dos mesmos.
+
+            }
+
+
+          });
+
+        });
+    </script>
+</body>
+</html>
