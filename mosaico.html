@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="jquery3.7.1.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</head>
+<body>
+    
+</body>
+
+<!--Container dos elementos em BOOTSTRAP-->
+<div class="container">
+
+    <div class="row">
+
+        <!--HTML ESTÁTICO-
+        <div class="col-lg-4">1</div> O BOOTSTRAP TEM 12 COLUNAS, SE QUEREMOS 3 ELEMENTOS EM CADA ROW, TEOS QUE TER 4 COLUNAS...4*3 = 12 | A PARTIR DO TAMANHO LARGE (lg)
+        <div class="col-lg-4">2</div>
+        <div class="col-lg-4">3</div>
+        <div class="col-lg-4">4</div>
+        <div class="col-lg-4">5</div>
+        <div class="col-lg-4">6</div> -->
+ 
+    </div>
+
+</div>
+
+<script>
+
+
+
+
+//Queremos 6 quadrados no array. Logo, um array de tamanho 6.
+ const familias = [['Free', ['$0', '/mo'], '10 users included', '2 GB of storage', 'Email support', 'Help center access', 'Sign up for Free'],
+ ['Paid', ['$0', '/mo'] ,'10 users included', '2 GB of storage', 'Email support', 'Help center access', 'Sign up for Free'],
+ ['Free', ['$0', '/mo'] ,'10 users included', '2 GB of storage', 'Email support', 'Help center access', 'Sign up for Free'],
+ ['Paid', ['$0', '/mo'] ,'10 users included', '2 GB of storage', 'Email support', 'Help center access', 'Sign up for Free'],
+ ['Free', ['$0', '/mo'] ,'10 users included', '2 GB of storage', 'Email support', 'Help center access', 'Sign up for Free'],
+ ['Paid', ['$0', '/mo'] ,'10 users included', '2 GB of storage', 'Email support', 'Help center access', 'Sign up for Free']];
+
+
+
+familias.forEach(CriarCartao);
+
+function CriarCartao(value,index,array){
+
+ var cartao = "<div class='card mb-4 rounded-3 shadow-sm'>"
+ cartao = cartao + "<div class='card-header py-3'>"
+ cartao = cartao + "<h4 class='my-0 fw-normal'>" + value[0] + "</h4>"
+ cartao = cartao + "</div>"
+ cartao = cartao + "<div class='card-body'>"
+ cartao = cartao + "<h1 class='card-title pricing-card-title'>" + value[1][0] + "<small class='text-body-secondary fw-light'>" + value[1][1] + "</small></h1>"
+ cartao = cartao + "<ul class='list-unstyled mt-3 mb-4'>"
+ cartao = cartao + "<li>" + value[3] + "</li>"
+ cartao = cartao + "<li>" + value[4] + "</li>"
+ cartao = cartao + "<li>" + value[5] + "</li>"
+ cartao = cartao + "<li>" + value[6] + "</li>"
+ cartao = cartao + "</ul>"
+ cartao = cartao + "<button type='button' class='w-100 btn btn-lg btn-outline-primary'>" + value[7] + "</button>"
+ cartao = cartao + "</div>"
+ cartao = cartao + "</div>"
+ cartao = cartao + "</div>"
+
+ $(".row").append("<div class='col-lg-6'>" + cartao + "</div>"); //No div do tipo row (aqui só temos 1 classe row), damos o append a cada valor passado no array pela formatação de 6 em 6 colunas via Bootstrap.
+
+
+}
+ //Sem OBJECT ORIENTED....(não é boa prática)
+
+
+ //TORNAR O HTML DINAMICO
+
+ familias.forEach(Criar01v); //Com o 'forEach', evitamos ter que indicar explicitamente indices..valores..etc. Tudo é passado como argumentos na função que está ligada ao próprio método forEach.
+
+ function Criar01v(value,index,array){
+ $(".row").append("<div class='col-lg-6'>" + cartao + "</div>"); //No div do tipo row (aqui só temos 1 classe row), damos o append a cada valor passado no array pela formatação de 6 em 6 colunas via Bootstrap.
+ }
+
+</script>
+</html>

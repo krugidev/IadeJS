@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulário Dinâmico</title>
+</head>
+<body>
+    <h1>Formulário Dinâmico</h1>
+    <form id="form-dinamico"></form>
+
+    <script>
+        const campos = [
+            ['Nome', 'text'],
+            ['Apelido', 'text'],
+            ['Email', 'email'],
+            ['Idade', 'number'],
+            ['Notas', 'multiline']
+        ];
+
+        const form = document.getElementById('form-dinamico');
+
+        campos.forEach(campo => {
+            const [placeholder, tipo] = campo;
+            let inputElement;
+
+            if (tipo === 'multiline') {
+                // Se for multiline, cria um textarea
+                inputElement = document.createElement('textarea');
+                inputElement.rows = 4;
+                inputElement.placeholder = placeholder;
+            } else {
+                // Para outros tipos, cria um input normal
+                inputElement = document.createElement('input');
+                inputElement.type = tipo;
+                inputElement.placeholder = placeholder;
+            }
+
+            inputElement.name = placeholder.toLowerCase(); // Nome do campo baseado no placeholder
+            inputElement.style.display = 'block'; // Para que cada input apareça numa nova linha
+            inputElement.style.marginBottom = '10px';
+
+            // Adiciona o elemento ao formulário
+            form.appendChild(inputElement);
+        });
+
+        // Adicionando um botão de submissão no final do formulário
+        const submitButton = document.createElement('button');
+        submitButton.type = 'submit';
+        submitButton.textContent = 'Enviar';
+        submitButton.style.display = 'block';
+        submitButton.style.marginTop = '20px';
+
+        form.appendChild(submitButton);
+    </script>
+</body>
+</html>

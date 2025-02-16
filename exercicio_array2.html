@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulário Dinâmico</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    
+  <!---  <h1>Formulário Dinâmico</h1> Inicio da página. Com um texto a informar do que se trata a página-->
+
+    <div class="container mt-5">
+
+      <h1 class="mb-4 text-center">Formulário Dinâmico</h1> <!-- Título centralizado e estilizado -->
+
+      <form id="form-dinamico" class="p-4 border rounded shadow-sm bg-light"></form> <!--Vamos ajustar posteriormente cada elemento de input dentro do formulário com base nos elementos do array de campos do formulário-->
+
+    </div>
+
+    <!--Dinamizar o Formulário-->
+    <script>
+
+      //O array conterá todos os campos envolvidos no formulário. Cada elemento de 'campos' será 1 input diferente de cada campo. Cada elemento deste array será outro array que conterá as informaçoes de cada campo: Placeholder e input type.
+      const campos = [['Nome','text'], ['Apelido','text'], ['Email','email'],['Idade','number'],['Notas','multiline']];
+
+      //O formulário em si será um 'objeto'...
+      const form = document.getElementById('form-dinamico'); //A constante 'form' será o elemento de id 'form-dinamico', que, como definimos na linha 12, é uma estrutura HTML do tipo formulário.
+
+    
+      campos.forEach(criarCampo);
+
+
+
+      function criarCampo(value){
+
+        const [placeholder, tipo] = value; //Cada campo será constituido por 2 elementos: o 'placeholder' e o tipo de campo (se é emai, number, texto normal, etc)
+
+        let inputElement;
+
+        const formGroup = document.createElement('div'); // Grupo de formulário (div) para cada campo
+        formGroup.className = 'form-group';
+
+
+        //Agora ajustamos o campo de input ao tipo de elemento à medida que o array de campos vai sendo percorrido.
+        if(tipo === 'multiline'){ //Se o tipo do elemento em questão for multiline, criamos um tipo de input para multilinhas (textarea) ao invé de um input normal...
+
+          inputElement = document.createElement('textarea'); //Se o tipo de elemento for multiline, cria um campo de input do tipo textarea.
+          inputElement.rows = 4; //Até 4 linhas.
+          inputElement.className = 'form-control'; // Classe do Bootstrap para textarea
+          inputElement.placeholder = placeholder; //O campo tomará o placeholder associado ao seu respetivo elemento no array de campos.
+
+        } else {
+
+          //Para outros tipos, cria um input normal...alterando somente o tipo de input respetivo (text, email, number)
+          inputElement = document.createElement('input'); // Input normal...
+          inputElement.type = tipo; //...apenas altera o tipo de input associado ao elemento...
+          inputElement.className = 'form-control'; // Classe do Bootstrap para inputs
+          inputElement.placeholder = placeholder; //O campo tomará o placeholder associado ao seu respetivo elemento no array de campos.
+
+        }
+
+        inputElement.name = placeholder.toLowerCase().replace(/ /g, '-');  // Define o atributo 'name' para cada campo
+        
+            // Criação de um <label> associado ao campo
+              const label = document.createElement('label');
+            label.textContent = placeholder;
+        //    label.setAttribute('for', inputElement.name);
+
+            // Adiciona o label e o input ao form-group
+           // formGroup.appendChild(label);
+
+
+        // Adiciona o elemento criado ao formulário
+        form.appendChild(inputElement);
+
+
+
+        //Adiciona o estilo de form-group do bootstrap ao formulário...
+        form.appendChild(formGroup);
+
+      }
+
+
+
+      //Botão de submit do formulário...
+      const submitButton = document.createElement('button'); //O 'submitButton' será um elemento do tipo 'button', ou seja, será um botão.
+
+
+      //Estilização do botão
+      submitButton.type = 'submit'; // O tipo de botão será do tip 'submit'.
+
+      submitButton.textContent = 'Enviar'; //Texto do botão.
+
+      submitButton.className = 'btn btn-primary btn-block'; // Botão estilo Bootstrap
+
+
+
+
+      // Adiciona o botão de submit ao formulário...
+      form.appendChild(submitButton);
+
+
+    </script>
+</body>
+</html>

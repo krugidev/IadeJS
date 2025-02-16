@@ -1,81 +1,106 @@
-$(document).ready(function() { //Primeiro carrega os elementos HTML e quando o documento (página) estiver pronto em termos de HTML, o script tornar-se-á devidamente funcional.
+$(document).ready(function () {
+    var agua = 40;
+    var cha = 20;
+    var cafe = 20;
 
-    // 3 depósitos que vão se gastando conforme quisermos CAFÉ, CHÁ ou ÁGUA.
-    var agua = 0;
-    var cha = 0;
-    var cafe = 0;
+    atualizaContador(agua, "agua");
+    atualizaContador(cha, "cha");
+    atualizaContador(cafe, "cafe");
 
-    // Eventos dos botões
-    $("#btnAgua").click(function() {
-        atualizaAgua(1);
+    // Botões de reposição
+    $("#btnReporAgua").click(function () {
+        atualizaAgua(20);
     });
 
-    $("#btnCafe").click(function() {
-        atualizaCafe(1);
+    $("#btnReporCafe").click(function () {
+        atualizaCafe(10);
     });
 
-    $("#btnCha").click(function() {
-        atualizaCha(1);
+    $("#btnReporCha").click(function () {
+        atualizaCha(10);
     });
 
-    $("#btnCafeLongo").click(function() {
-        if (agua >= 2 && cafe >= 1) {  // Verifica se há pelo menos 2 unidades de água e 1 de café
-            atualizaAgua(2);
-            atualizaCafe(1);
-            alert("Café Longo tirado com sucesso!");
+    // Botões para tirar bebidas
+    $("#btnAgua").click(function () {
+        if (agua <= 0) {
+            alert("Não tem água");
         } else {
-            alert("Ingredientes insuficientes para um Café Longo!");
+            atualizaAgua(-1);
         }
     });
 
-    // BOTÕES DE REPOSIÇÃO
-    $("#reporAgua").click(function() {
-        agua += 20;
-        atualizaContador(agua, "agua_agua");
+    $("#btnCafe").click(function () {
+        if (cafe <= 0 || agua <= 0) {
+            alert("Não tem café ou água suficiente");
+        } else {
+            atualizaCafe(-1);
+        }
     });
 
-    $("#reporCafe").click(function() {
-        cafe += 10;
-        atualizaContador(cafe, "cafe_cafe");
+    $("#btnCafeLongo").click(function () {
+        if (cafe <= 0 || agua < 2) {
+            alert("Não tem café ou água suficiente para um café longo");
+        } else {
+            atualizaCafe(-1, 1);
+        }
     });
 
-    $("#reporCha").click(function() {
-        cha += 10;
-        atualizaContador(cha, "cha_cha");
+    $("#btnCha").click(function () {
+        if (cha <= 0 || agua <= 0) {
+            alert("Não tem chá ou água suficiente");
+        } else {
+            atualizaCha(-1);
+        }
     });
 
-    // Funções de Atualização dos Depósitos
+    // Funções para atualizar os depósitos
     function atualizaAgua(unidades) {
-        if (agua >= unidades) {
-            agua -= unidades;
-            atualizaContador(agua, "agua_agua");
-        } else {
-            alert("Água insuficiente!");
-        }
+        agua += unidades;
+        atualizaContador(agua, "agua");
     }
 
-    function atualizaCafe(unidades) {
-        if (cafe >= unidades) {
-            cafe -= unidades;
-            atualizaContador(cafe, "cafe_cafe");
-            atualizaAgua(unidades);
-        } else {
-            alert("Café insuficiente!");
+    function atualizaCafe(unidades, longo = 0) {
+        cafe += unidades;
+        atualizaContador(cafe, "cafe");
+
+        if (unidades < 0) {
+            atualizaAgua(unidades * (longo === 0 ? 1 : 2));
         }
     }
 
     function atualizaCha(unidades) {
-        if (cha >= unidades) {
-            cha -= unidades;
-            atualizaContador(cha, "cha_cha");
+        cha += unidades;
+        atualizaContador(cha, "cha");
+
+        if (unidades < 0) {
             atualizaAgua(unidades);
-        } else {
-            alert("Chá insuficiente!");
         }
     }
 
-    function atualizaContador(valor, contador) {
-        $("#" + contador).html(valor);
+   function atualizaContador(valor,contador)
+    {
+        var label="";
+        switch(contador)
+        {
+            case "agua":
+                label="<b>Água</b><label>(" + valor + ")</label>";
+                break;
+            case "cha":
+                label="<b>Chá</b><label>(" + valor + ")</label>";
+                break;
+            case "cafe":
+                label="<b>Café</b><label>(" + valor + ")</label>"
+                break;
+        }
+        $("#" + contador).html(label);
+        if(valor <=0)
+        {
+            $("#" + contador).attr("class","nostock");
+        }
+        else
+        {
+            $("#" + contador).attr("class","");
+        }
     }
-
 });
+
