@@ -1,0 +1,13 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "../../../IadeJS-main/IadeJS-main"
+		}
+	],
+	"settings": {
+		"liveServer.settings.multiRootWorkspaceName": "IadeJS"
+	}
+}

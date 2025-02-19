@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="object_oriented.js"></script>
+</head>
+<body>
+    
+
+
+</body>
+
+
+<script>
+
+    //Criar INSTÂNCIAS dos objetos.
+    individuo1 = new Individuo("Sergio", "Fontes");
+    individuo2 = new Individuo("Maria", "Silva");
+
+
+
+    //Podemos aceder às propriedades dos objetos.
+    console.log(individuo1.Apelido);
+    console.log(individuo2.Apelido);
+    
+    //Mesmo se a classe construtora não incluir um atributo, podemos ainda assim aceder, pois ele vai buscar os valores às CARACTERISTICAS do objeto e não aos atributos da classe que o constrói.
+    console.log(individuo1.Idade);
+
+
+    //Obter o nome completo de uma instância de um objeto individuo por meio de uma função que lá é definida:
+    console.log(individuo1.NomeCompleto());
+
+</script>
+</html>

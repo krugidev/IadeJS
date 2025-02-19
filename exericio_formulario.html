@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+   
+        <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    </head>
+    <body>
+        <div class="container">
+            <div id="frm" class="row">
+
+            </div>
+        </div>
+       
+    </body>
+</html>
+<script>
+
+ //Classes (neste exemplo estamos a defini-las no html, mas devem SER SEMPRE DEFINIDAS NUM FICHEIRO A PARTE//
+
+ class Form {
+
+    constructor(name){
+
+        this.Name;
+        this.fields = []; //O array de campos será um ARRAY DE OBJETOS, em que cada elemento é uma instancia do objeto Fill (definido embaixo noutra classe)
+
+    }
+
+
+
+    //Método HTML para c
+
+    Html(){
+
+        var html="";
+
+        this.fields.forEach(
+
+            function(field){
+                html = html + field.Html();  //Cada field do array de fields (que é um array de objetos do tipo field), irá construir um HTML para si, ajustando labels e outros detalhes da sua estrutura HTML com base nas suas caracteristicas.
+            }
+
+        );
+
+
+        return html;
+
+    }
+
+ }
+
+
+ class Field {
+
+    constructor(name,type,placeholder){
+
+        this.Name=name;
+        this.Type=type;
+        this.Placeholder=placeholder;
+
+    }
+
+    Html(){ //Gerar o HTML
+
+        var html = "<div class='col-12'>";
+                html = html + "<label for='" + this.Name 
+                + "' class='form-label'>" + this.Name + "</label>";
+                switch(this.Type)
+                {
+                    case "multiline":
+                        html = html + "<textarea class='form-control' id='" 
+                        + this.Name + "' rows='3'></textarea>";
+                        break;
+                    default:
+                        html = html + "<input type='" + this.Type 
+                        + "' class='form-control' id='" + this.Name + "' placeholder='" + this.Placeholder + "'>";
+                        break;
+                }
+
+            
+                html = html + "</div>"
+        
+        return html;
+    }
+
+ }
+
+
+
+ //Criação de uma instância de formulário
+
+ formulario = new Form("Exercicio");
+
+
+ //Criação de instâncias de campos por meio de um array, para associar esse array à caracteristica 'fields', que é uma caracteristica do objeto Form.
+ campos = [
+   new Field("Nome", "text", "nome")
+   ,new Field("Apelido", "text", "apelido")
+   ,new Field("Email", "email", "email")
+   ,new Field("Idade", "number", "idade"),
+   ,new Field("Notas", "multiline", "")
+
+];
+
+
+
+formulario.fields = campos;
+
+
+// Insere o HTML gerado dentro da `div#frm`
+$(document).ready(function() {
+     $("#frm").html(formulario.Html());
+});
+/*
+
+
+
+ campos = [
+    ['Nome','text']
+    ,['Apelido','text']
+    ,['Email','email']
+    ,['Idade','number']
+    ,['Notas','multiline']
+ ]
+
+ $(document).ready(
+    function()
+    {
+        campos.forEach(
+            function(element)
+            {
+                var html = "<div class='col-12'>";
+                html = html + "<label for='" + element[0] 
+                + "' class='form-label'>" + element[0] + "</label>";
+                switch(element[1])
+                {
+                    case "multiline":
+                        html = html + "<textarea class='form-control' id='" 
+                        + element[0] + "' rows='3'></textarea>";
+                        break;
+                    default:
+                        html = html + "<input type='" + element[1] 
+                        + "' class='form-control' id='" + element[0] + "' placeholder=''>";
+                        break;
+                }
+                html = html + "</div>"
+                $("#frm").append(html);
+            }
+        )
+    }
+        
+ );
+
+*/
+
+</script>
+
+
+
+
+
+<!--TPC: Pensar em algo no meu dia a dia e representar esses objetos envolvidos por meio de classes: Fazer com a ajuda do CHATGPT-->
