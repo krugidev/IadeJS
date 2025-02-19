@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulário Dinâmico</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="mb-4 text-center">Formulário Dinâmico</h1>
+        <form id="form-dinamico" class="p-4 border rounded shadow-sm bg-light"></form>
+    </div>
+
+    <script>
+        // Definição dos campos do formulário
+        const campos = [
+            ['Nome', 'text'],
+            ['Apelido', 'text'],
+            ['Email', 'email'],
+            ['Idade', 'number'],
+            ['Notas', 'multiline']
+        ];
+
+        // Obtendo o formulário
+        const form = document.getElementById('form-dinamico');
+
+        // Variável que armazena o HTML gerado
+        let formHTML = '';
+
+        // Construindo os inputs dinamicamente
+        campos.forEach((campo, index) => {
+            const placeholder = campo[0];
+            const tipo = campo[1];
+            const name = placeholder.toLowerCase().replace(/ /g, '-');
+
+            if (tipo === 'multiline') {
+                formHTML += `
+                    <div class="form-group">
+                        <label for="${name}">${placeholder}</label>
+                        <textarea id="${name}" name="${name}" class="form-control" rows="4" placeholder="${placeholder}"></textarea>
+                    </div>
+                `;
+            } else {
+                formHTML += `
+                    <div class="form-group">
+                        <label for="${name}">${placeholder}</label>
+                        <input id="${name}" name="${name}" type="${tipo}" class="form-control" placeholder="${placeholder}">
+                    </div>
+                `;
+            }
+        });
+
+        // Adicionando o botão de envio ao HTML gerado
+        formHTML += `<button type="submit" class="btn btn-primary btn-block mt-4">Enviar</button>`;
+
+        // Inserindo todo o HTML dentro do formulário de uma vez
+        form.innerHTML = formHTML;
+    </script>
+</body>
+</html>

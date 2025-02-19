@@ -25,14 +25,14 @@
       const campos = [['Nome','text'], ['Apelido','text'], ['Email','email'],['Idade','number'],['Notas','multiline']];
 
       //O formulário em si será um 'objeto'...
-      const form = document.getElementById('form-dinamico'); //A constante 'form' será o elemento de id 'form-dinamico', que, como definimos na linha 12, é uma estrutura HTML do tipo formulário.
+      const form = document.getElementById('form-dinamico'); //A constante 'form' será o elemento de id 'form-dinamico', que, como definimos na linha 17, é uma estrutura HTML do tipo formulário.
 
-    
+
       campos.forEach(criarCampo);
 
+      
 
-
-      function criarCampo(value){
+      function criarCampo(value){ //A função de for each só recebe 1 valor no Javascript....e por isso recebe o value, que será um mapeamento de cada elemento do array de campos...que é constituido pelo placeholder e pelo input type.
 
         const [placeholder, tipo] = value; //Cada campo será constituido por 2 elementos: o 'placeholder' e o tipo de campo (se é emai, number, texto normal, etc)
 
@@ -49,7 +49,7 @@
           inputElement.rows = 4; //Até 4 linhas.
           inputElement.className = 'form-control'; // Classe do Bootstrap para textarea
           inputElement.placeholder = placeholder; //O campo tomará o placeholder associado ao seu respetivo elemento no array de campos.
-
+        
         } else {
 
           //Para outros tipos, cria um input normal...alterando somente o tipo de input respetivo (text, email, number)
@@ -100,6 +100,7 @@
       // Adiciona o botão de submit ao formulário...
       form.appendChild(submitButton);
 
+  
 
     </script>
 </body>
